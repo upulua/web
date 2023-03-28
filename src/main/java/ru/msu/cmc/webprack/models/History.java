@@ -20,13 +20,13 @@ public class History implements CommonEntity<Long> {
     @Column(nullable = false, name = "history_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
     @JoinColumn(name = "worker_id")
     @ToString.Exclude
     @NonNull
     private Worker worker;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
     @JoinColumn(name = "position_id")
     @ToString.Exclude
     @NonNull

@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface WorkerDAO extends CommonDAO<Worker, Long> {
-    List<Worker> getAllWorkers();
     List<Worker> getAllWorkerByName(String workerName);
     List<Worker> getByFilter(Filter filter);
 

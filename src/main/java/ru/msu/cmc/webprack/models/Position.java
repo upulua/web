@@ -26,7 +26,7 @@ public class Position implements CommonEntity<Long> {
     @NonNull
     private String duty;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
     @JoinColumn(name = "department_id")
     @ToString.Exclude
     @NonNull

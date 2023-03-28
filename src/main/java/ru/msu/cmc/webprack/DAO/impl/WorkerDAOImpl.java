@@ -26,13 +26,6 @@ public class WorkerDAOImpl extends CommonDAOImpl<Worker, Long> implements Worker
     }
 
     @Override
-    public List<Worker> getAllWorkers() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Worker> query = session.createQuery("FROM Worker", Worker.class);
-            return query.getResultList().size() == 0 ? null : query.getResultList();
-        }
-    }
-    @Override
     public List<Worker> getAllWorkerByName(String name) {
         try (Session session = sessionFactory.openSession()) {
             Query<Worker> query = session.createQuery("FROM Worker WHERE name LIKE :gotName", Worker.class)
