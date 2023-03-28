@@ -20,8 +20,10 @@ public class PositionDAOImpl extends CommonDAOImpl<Position, Long> implements Po
             Query<Department> q = session.createQuery("FROM Department WHERE name = :param1", Department.class)
                     .setParameter("param1", depName);
             Long depId = q.getResultList().get(0).getId();
-            Query<Position> query = session.createQuery("FROM Position WHERE department = :depId", Position.class)
-                    .setParameter("depId", depId);
+//            Query<Position> query = session.createQuery("FROM Position WHERE department = :depId", Position.class)
+//                    .setParameter("depId", depId);
+            Query<Position> query = session.createQuery("FROM Position WHERE department = :dep", Position.class)
+                    .setParameter("dep", q.getResultList().get(0));
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
     }

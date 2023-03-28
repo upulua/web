@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
-public class WorkerDAOTest {
+public class PositionDAOTest {
     @Autowired
     private DepartmentDAO departmentDAO;
     @Autowired
@@ -35,40 +35,19 @@ public class WorkerDAOTest {
 
     @Test
     void testSimpleManipulations() {
-        List<Worker> workerAll = (List<Worker>) workerDAO.getAll();
-        assertEquals(10, workerAll.size());
-
-        WorkerDAO.Filter f = new WorkerDAO.Filter("Иван", null);
-        List<Worker> workerByFilter = workerDAO.getByFilter(f);
-        assertEquals(2, workerByFilter.size());
-
-        WorkerDAO.Filter fDate = new WorkerDAO.Filter(null, Timestamp.valueOf("2019-05-04 00:00:00"));
-        List<Worker> workerByDate = workerDAO.getByFilter(fDate);
-        assertEquals(1, workerByDate.size());
-
-        WorkerDAO.Filter fNull = new WorkerDAO.Filter(null, null);
-        List<Worker> workerNull = workerDAO.getByFilter(fNull);
-        assertEquals(10, workerNull.size());
-
-        fNull = new WorkerDAO.Filter("Ефросинья", null);
-        workerNull = workerDAO.getByFilter(fNull);
-        assertNull(workerNull);
-
-        Worker workerNotExist = workerDAO.getById(666L);
-        assertNull(workerNotExist);
+        List<Position> posAnalysis = positionDAO.getAllPositionsInDepartment("Аналитический отдел");
+        assertEquals(2, posAnalysis.size());
     }
 
     @Test
     void testUpdate() {
-        String edu = "филиал МГУ в Сарове";
-        Worker w = workerDAO.getWorkerByName("Ким");
-        assertEquals("МГУ им. Ломоносова", w.getEducation());
+        Position p = positionDAO.getById(7L);
+        assertNotNull(p);
+        p.setDuty("Анализировать");
+        positionDAO.update(p);
 
-        w.setEducation(edu);
-        workerDAO.update(w);
-
-        w = workerDAO.getWorkerByName("Ким");
-        assertEquals(edu, w.getEducation());
+        p = positionDAO.getById(7L);
+        assertEquals("Анализировать", p.getDuty());
     }
 
     @BeforeEach

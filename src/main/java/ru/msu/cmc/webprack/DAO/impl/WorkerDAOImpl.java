@@ -57,7 +57,7 @@ public class WorkerDAOImpl extends CommonDAOImpl<Worker, Long> implements Worker
             }
             criteriaQuery.select(root).where(predicates.toArray(new Predicate[] {}));
 
-            return session.createQuery(criteriaQuery).getResultList();
+            return session.createQuery(criteriaQuery).getResultList().size() == 0 ? null : session.createQuery(criteriaQuery).getResultList();
         }
     }
 
